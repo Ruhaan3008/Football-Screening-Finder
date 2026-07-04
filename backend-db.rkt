@@ -5,10 +5,11 @@
     (struct-out match)
     (struct-out user)
     (struct-out listing)
+    (struct-out booking)
 )
 
 ;;db related
-(provide stadiums teams users)
+(provide stadiums teams users bookings)
 
 ;;listings
 (provide null-listing listings)
@@ -35,5 +36,15 @@
 
 (define null-listing (listing -1 -1 "" 0 0 0))
 
-;;should this be a set?? cant have duplicate here and order does not matter...
-(define listings (set))
+;;should this be a set??
+;;order does matter do refference for bookings
+;;that rules out lists
+(define listings (list))
+
+
+(struct booking (user-id listing-id seats))
+
+;;this can be a set
+;;bookings dont need a id
+;;will just do a lookup everysingle time
+(define bookings (set))
