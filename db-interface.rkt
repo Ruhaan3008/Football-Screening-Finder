@@ -52,3 +52,11 @@
 (define valid-session? (lambda (x)
   (session-is-validated x)
 ))
+
+(define valid-listing? (lambda (x) 
+  (equal? -1 (listing-match-id x))
+))
+
+(define add-listings (lambda (x)
+  (set-add listings x)
+))

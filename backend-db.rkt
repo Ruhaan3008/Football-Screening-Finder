@@ -1,10 +1,17 @@
 #lang racket
 
 ;;all the structs
-(provide (struct-out match) (struct-out user))
+(provide 
+    (struct-out match)
+    (struct-out user)
+    (struct-out listing)
+)
 
 ;;db related
 (provide stadiums teams users)
+
+;;listings
+(provide null-listing listings)
 
 
 ;;These are vector as sets do not garruntee the order
@@ -24,4 +31,9 @@
 
 
 
-;;(struct listing (match-id location seat-price capacity vacancies) #:mutable)
+(struct listing (match-id user-id location seat-price capacity vacancies) #:mutable)
+
+(define null-listing (listing -1 -1 "" 0 0 0))
+
+;;should this be a set?? cant have duplicate here and order does not matter...
+(define listings (set))
