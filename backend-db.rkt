@@ -11,6 +11,8 @@
 ;;db related
 (provide stadiums teams users bookings)
 
+(provide add-user)
+
 ;;listings
 (provide null-listing listings)
 
@@ -30,7 +32,9 @@
 
 (define users (list (user "john" "1234" #t) (user "Kevin" "test" #f)))
 
-
+(define add-user (lambda (user-name password is-fan)
+    (set! users (append users (list (user user-name password is-fan))))
+))
 
 (struct listing (match-id user-id location seat-price capacity vacancies) #:mutable)
 
