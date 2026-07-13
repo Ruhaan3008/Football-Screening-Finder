@@ -11,7 +11,7 @@
 ;;db related
 (provide stadiums teams users bookings matches)
 
-(provide add-user add-listing)
+(provide add-user add-listing edit-listing)
 
 ;;listings
 (provide listings matches)
@@ -53,6 +53,14 @@
 
 (define add-listing (lambda (match-id user-id location seat-price status)
   (set! listings (append listings (list (listing match-id user-id location seat-price status))))
+))
+
+(define edit-listing
+  (lambda (index match-id user-id location seat-price status)
+    (set! listings (list-set listings index 
+      (listing match-id user-id location seat-price status)
+      )
+    )
 ))
 
 

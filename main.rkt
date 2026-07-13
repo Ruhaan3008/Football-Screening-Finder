@@ -22,17 +22,45 @@
             (display "Enter Match ID: ")
             (define new-match-id (string->number (string-trim (read-line))))
 
-            (displayln "Enter Location: ")
+            (display "Enter Location: ")
             (define new-location (string-trim (read-line)))
 
-            (displayln "Enter Seat Price: ")
+            (display "Enter Seat Price: ")
             (define new-seat-price (string->number (string-trim (read-line))))
 
-            (displayln "Enter Status:")
+            (display "Enter Status:")
             (define new-status (string-trim (read-line)))
 
             (add-listing new-match-id (session-user-id host-session) new-location new-seat-price new-status)
             (displayln "Listing Created")
+            
+        )
+        ((equal? "3" user-input) 
+            (displayln "Please enter the listing id to edit.")
+            (print-host-listings host-session)
+            (displayln "")
+
+            (display "Enter Listing ID: ")
+            (define edit-listing-id (string->number (string-trim (read-line))))
+
+            (displayln "Please enter the match id for the new listing.")
+            (print-all-matches)
+            (displayln "")
+
+            (display "Enter Match ID: ")
+            (define new-match-id (string->number (string-trim (read-line))))
+
+            (display "Enter Location: ")
+            (define new-location (string-trim (read-line)))
+
+            (display "Enter Seat Price: ")
+            (define new-seat-price (string->number (string-trim (read-line))))
+
+            (display "Enter Status:")
+            (define new-status (string-trim (read-line)))
+
+            (edit-listing edit-listing-id new-match-id (session-user-id host-session) new-location new-seat-price new-status)
+            (display "Listing Created")
             
         )
     )
