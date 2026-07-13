@@ -14,7 +14,7 @@
 (provide add-user)
 
 ;;listings
-(provide null-listing listings)
+(provide listings matches)
 
 
 ;;These are vector as sets do not garruntee the order
@@ -44,8 +44,6 @@
 ))
 
 (struct listing (match-id user-id location seat-price status) #:mutable)
-
-(define null-listing (listing -1 -1 "" 0 "Invalid listing"))
 
 ;;just make it a list, length will change during run time
 ;;these are for hosts, and only belong to hosts

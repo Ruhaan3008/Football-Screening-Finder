@@ -13,6 +13,7 @@
     (define user-input (string-trim (read-line)))
 
     (cond
+        ((equal? "1" user-input) (print-host-listings host-session))
         ((equal? "4" user-input) (displayln "Thank you for your time, you are being logged out."))
         (#t (host-menus host-session))
     )
