@@ -11,7 +11,7 @@
 ;;db related
 (provide stadiums teams users bookings matches)
 
-(provide add-user)
+(provide add-user add-listing)
 
 ;;listings
 (provide listings matches)
@@ -49,6 +49,10 @@
 ;;these are for hosts, and only belong to hosts
 (define listings (list
     (listing 0 1 "Hendon Central" 20 "Avaliable")
+))
+
+(define add-listing (lambda (match-id user-id location seat-price status)
+  (set! listings (append listings (list (listing match-id user-id location seat-price status))))
 ))
 
 

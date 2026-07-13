@@ -5,6 +5,7 @@
 (provide (struct-out session))
 (provide log-in valid-session? is-user-fan? 
   print-listing print-host-listings
+  print-all-matches
 )
 
 ;;just made thsi seperate to keep things clean
@@ -45,6 +46,15 @@
   (displayln (match-date m))
 ))
 
+(define print-all-matches (lambda ()
+
+  (for ([id (in-range (length matches))])
+    (display "Match ID: ")
+    (displayln id)
+    (print-match (get-match id))
+  )
+))
+
 (define get-users (lambda () users))
 (define get-user (lambda (x) (list-ref users x)))
 
@@ -80,12 +90,19 @@
 (define print-host-listings (lambda (host-session)
   (define user-id (session-user-id host-session))
 
-  (for ([i listings])
-    (cond
-      ((equal? (listing-user-id i) user-id) (print-listing i))
-  )
+  (for ([id (in-range (length listings))])
+    (define l (list-ref listings id))
 
-)))
+    (cond
+      ((equal? (listing-user-id l) user-id) 
+        (display "Listing id: ")
+        (displayln id)
+        (print-listing l)
+      )
+      (#t (void))
+    )
+  )
+))
 
 (define print-listing (lambda (l)
   (display "Match: ")

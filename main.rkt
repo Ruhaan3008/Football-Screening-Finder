@@ -14,6 +14,30 @@
 
     (cond
         ((equal? "1" user-input) (print-host-listings host-session))
+        ((equal? "2" user-input) 
+            (displayln "Please enter the match id for the new listing.")
+            (print-all-matches)
+            (displayln "")
+
+            (display "Enter Match ID: ")
+            (define new-match-id (string->number (string-trim (read-line))))
+
+            (displayln "Enter Location: ")
+            (define new-location (string-trim (read-line)))
+
+            (displayln "Enter Seat Price: ")
+            (define new-seat-price (string->number (string-trim (read-line))))
+
+            (displayln "Enter Status:")
+            (define new-status (string-trim (read-line)))
+
+            (add-listing new-match-id (session-user-id host-session) new-location new-seat-price new-status)
+            (displayln "Listing Created")
+            
+        )
+    )
+
+    (cond
         ((equal? "4" user-input) (displayln "Thank you for your time, you are being logged out."))
         (#t (host-menus host-session))
     )
