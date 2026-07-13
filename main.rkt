@@ -3,6 +3,20 @@
 (require "db-interface.rkt")
 (require "backend-db.rkt")
 
+(define host-menus (lambda (host-session)
+    (displayln "Enter the number for what you want to do:")
+    (displayln "1. View my listings")
+    (displayln "2. Add new listings")
+    (displayln "3. Edit existing listings")
+    (displayln "4. Quit")
+
+    (define user-input (string-trim (read-line)))
+
+    (cond
+        ((equal? "4" user-input) (displayln "Thank you for your time, you are being logged out."))
+        (#t (host-menus host-session))
+    )
+))
 
 (displayln "Welcom to Football Screening Finder")
 
@@ -41,7 +55,10 @@
 
 (cond
     (is-user-fan (displayln "You are logged in as a fan."))
-    (#t (displayln "You are logged in as a host."))
+    (#t 
+        (displayln "You are logged in as a host.")
+        (host-menus current-session)
+    )
 )
 
 ))

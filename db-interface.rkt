@@ -5,8 +5,14 @@
 (provide (struct-out session))
 (provide log-in valid-session? is-user-fan?)
 
+;;just made thsi seperate to keep things clean
+(provide get-team get-venue)
+
 (define get-teams (lambda () teams))
 (define get-stadiums (lambda () stadiums))
+
+(define get-team (lambda (x) (list-ref (get-teams) x)))
+(define get-venue (lambda (x) (list-ref (get-stadiums) x)))
 
 (define get-id-internal (lambda (x lst)
     (define ret-index -1)

@@ -9,7 +9,7 @@
 )
 
 ;;db related
-(provide stadiums teams users bookings)
+(provide stadiums teams users bookings matches)
 
 (provide add-user)
 
@@ -27,6 +27,13 @@
 
 (struct match (home away stadium date) #:mutable)
 
+(define matches (list
+  (match 0 1 1 "6 July")
+  (match 2 4 0 "10 July")
+  (match 3 5 2 "9 July")
+  (match 0 2 3 "11 July")
+))
+
 
 (struct user (username password is-fan) #:mutable)
 
@@ -36,12 +43,15 @@
     (set! users (append users (list (user user-name password is-fan))))
 ))
 
-(struct listing (match-id user-id location seat-price capacity vacancies) #:mutable)
+(struct listing (match-id user-id location seat-price status) #:mutable)
 
-(define null-listing (listing -1 -1 "" 0 0 0))
+(define null-listing (listing -1 -1 "" 0 "Invalid listing"))
 
-;;resize the list every time it grows....
-(define listings (vector))
+;;just make it a list, length will change during run time
+;;these are for hosts, and only belong to hosts
+(define listings (list
+    (listing 0 1 "Hendon Central" 20 "Avaliable")
+))
 
 
 (struct booking (user-id listing-id seats))
