@@ -59,8 +59,14 @@
             (display "Enter Status:")
             (define new-status (string-trim (read-line)))
 
-            (edit-listing edit-listing-id new-match-id (session-user-id host-session) new-location new-seat-price new-status)
-            (display "Listing Created")
+            (cond 
+                ((equal? (listing-user-id (get-listing edit-listing-id)) (session-user-id host-session))
+                    (edit-listing edit-listing-id new-match-id (session-user-id host-session) new-location new-seat-price new-status)
+                    (displayln "Listing Editted")
+                )
+                (#t "This listing does not belong to you")
+            )
+
             
         )
     )

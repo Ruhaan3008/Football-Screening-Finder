@@ -9,7 +9,7 @@
 )
 
 ;;just made thsi seperate to keep things clean
-(provide get-team get-venue)
+(provide get-team get-venue get-listing)
 
 (define get-teams (lambda () teams))
 (define get-stadiums (lambda () stadiums))
@@ -17,6 +17,7 @@
 (define get-team (lambda (x) (list-ref (get-teams) x)))
 (define get-match (lambda (x) (list-ref matches x)))
 (define get-venue (lambda (x) (list-ref (get-stadiums) x)))
+(define get-listing (lambda (x) (list-ref listings x)))
 
 (define get-id-internal (lambda (x lst)
     (define ret-index -1)
