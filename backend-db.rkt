@@ -21,7 +21,7 @@
 ;;use list-ref
 (define stadiums (list "New York" "Dallas" "Toronto" "Mexico City"))
 
-(define teams (vector "Argentina" "England" "USA" "Scotland" "France" "Netherlands"))
+(define teams (list "Argentina" "England" "USA" "Scotland" "France" "Netherlands"))
 
 (struct match (home away stadium date) #:mutable)
 
@@ -36,10 +36,8 @@
 
 (define null-listing (listing -1 -1 "" 0 0 0))
 
-;;should this be a set??
-;;order does matter do refference for bookings
-;;that rules out lists
-(define listings (list))
+;;resize the list every time it grows....
+(define listings (vector))
 
 
 (struct booking (user-id listing-id seats))

@@ -56,3 +56,7 @@
 (define valid-listing? (lambda (x) 
   (equal? -1 (listing-match-id x))
 ))
+
+;;(define add-listing (lambda (x)
+  ;;(set! listings (vector-append listings x))
+;;))
