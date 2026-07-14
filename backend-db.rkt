@@ -9,12 +9,14 @@
 )
 
 ;;db related
-(provide stadiums teams users bookings matches)
+(provide stadiums teams users listings bookings matches)
 
-(provide add-user add-listing edit-listing)
+;;function that need to be defined here
+(provide add-user 
+  add-listing edit-listing
+  delete-booking
+)
 
-;;listings
-(provide listings matches)
 
 
 ;;These are vector as sets do not garruntee the order
@@ -49,6 +51,7 @@
 ;;these are for hosts, and only belong to hosts
 (define listings (list
     (listing 0 1 "Hendon Central" 20 "Avaliable")
+    (listing 2 1 "Hendon Central" 20 "Booking Fast")
 ))
 
 (define add-listing (lambda (match-id user-id location seat-price status)
@@ -64,9 +67,16 @@
 ))
 
 
-(struct booking (user-id listing-id seats))
+(struct booking (user-id listing-id))
 
-;;this can be a set
-;;bookings dont need a id
-;;will just do a lookup everysingle time
-(define bookings (set))
+;;this needs to be a list, ids are needed for this as well
+(define bookings (list
+  (booking 0 0)
+  (booking 0 1)
+))
+
+;;source for remove function
+;;https://stackoverflow.com/questions/19913606/delete-element-from-list-in-scheme
+(define delete-booking (lambda (index)
+  (set! bookings (remove (list-ref bookings index) bookings))
+))

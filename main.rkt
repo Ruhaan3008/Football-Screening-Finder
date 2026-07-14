@@ -77,6 +77,39 @@
     )
 ))
 
+(define fan-menus (lambda (fan-session)
+    (displayln "Enter a number for what you want to do: ")
+    (displayln "1. View my selected listings")
+    (displayln "2. Search and add to my selected listings")
+    (displayln "3. Remove from my selected listings")
+    (displayln "4. Quit")
+    
+    (define user-input (string-trim (read-line)))
+
+    (cond
+        ((equal? "1" user-input)
+            (print-fan-bookings fan-session)
+        )
+
+        ((equal? "3" user-input)
+            (displayln "Please enter the ID of the listing you want to remove.")
+            (print-fan-bookings fan-session)
+
+            (displayln "")
+            (display "Listing ID: ")
+            (define delete-index (string->number(string-trim (read-line))))
+            (delete-booking-authorized fan-session delete-index)
+        )
+    )
+
+    (cond
+        ((equal? "4" user-input) (displayln "Thank you for your time, you are being logged out."))
+        (#t (fan-menus fan-session))
+    )
+
+
+))
+
 (displayln "Welcom to Football Screening Finder")
 
 (display "Would you like to create a new account? (y/n): ")
@@ -113,7 +146,11 @@
 (define is-user-fan (is-user-fan? current-session))
 
 (cond
-    (is-user-fan (displayln "You are logged in as a fan."))
+    (is-user-fan 
+        (displayln "You are logged in as a fan.")
+        (fan-menus current-session)
+    )
+
     (#t 
         (displayln "You are logged in as a host.")
         (host-menus current-session)

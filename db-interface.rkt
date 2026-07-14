@@ -3,9 +3,11 @@
 (require "backend-db.rkt")
 
 (provide (struct-out session))
+
 (provide log-in valid-session? is-user-fan? 
   print-listing print-host-listings
   print-all-matches
+  print-fan-bookings delete-booking-authorized
 )
 
 ;;just made thsi seperate to keep things clean
@@ -18,6 +20,7 @@
 (define get-match (lambda (x) (list-ref matches x)))
 (define get-venue (lambda (x) (list-ref (get-stadiums) x)))
 (define get-listing (lambda (x) (list-ref listings x)))
+(define get-booking (lambda (x) (list-ref bookings x)))
 
 (define get-id-internal (lambda (x lst)
     (define ret-index -1)
@@ -91,7 +94,7 @@
 (define print-host-listings (lambda (host-session)
   (define user-id (session-user-id host-session))
 
-  (for ([id (in-range (length listings))])
+  (for ([id (length listings)])
     (define l (list-ref listings id))
 
     (cond
@@ -123,6 +126,29 @@
   (user-is-fan (get-user (session-user-id x)))
 ))
 
-;;(define add-listing (lambda (x)
-  ;;(set! listings (vector-append listings x))
-;;))
+(define print-fan-bookings(lambda (fan-session)
+  (define fan-id (session-user-id fan-session))
+  (for ([id (length bookings)])
+    (define b (list-ref bookings id))
+
+    (cond
+      ((equal? (booking-user-id b) fan-id) 
+        (display "Booking id: ")
+        (displayln id)
+        (print-listing (get-listing (booking-listing-id b)))
+      )
+      (#t (void))
+    )
+  )
+))
+
+(define delete-booking-authorized (lambda (fan-session index)
+  (define b (get-booking index))
+  (cond
+    ((equal? (booking-user-id b) (session-user-id fan-session))
+      (delete-booking index)
+      (displayln "Listing removed from my selected list.")
+    )
+    (#t (displayln "Booking failed"))
+  )
+))
