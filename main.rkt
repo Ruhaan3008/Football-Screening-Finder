@@ -64,7 +64,7 @@
                     (edit-listing edit-listing-id new-match-id (session-user-id host-session) new-location new-seat-price new-status)
                     (displayln "Listing Editted")
                 )
-                (#t "This listing does not belong to you")
+                (#t (displayln "This listing does not belong to you"))
             )
 
             
