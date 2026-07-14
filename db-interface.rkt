@@ -6,12 +6,13 @@
 
 (provide log-in valid-session? is-user-fan? 
   print-listing print-host-listings
+  search-listings-by-match search-listings-by-location
   print-all-matches
   print-fan-bookings delete-booking-authorized
 )
 
 ;;just made thsi seperate to keep things clean
-(provide get-team get-venue get-listing)
+(provide get-team get-venue get-listing get-listing-id)
 
 (define get-teams (lambda () teams))
 (define get-stadiums (lambda () stadiums))
@@ -39,6 +40,7 @@
 (define get-team-id (lambda (x) (get-id-internal x teams)))
 
 (define get-venue-id (lambda (x) (get-id-internal x stadiums)))
+(define get-listing-id (lambda (x) (get-id-internal x listings)))
 
 (define print-match (lambda (m)
   (display (get-team (match-home m)))
@@ -151,4 +153,12 @@
     )
     (#t (displayln "Booking failed"))
   )
+))
+
+(define search-listings-by-match (lambda (match-id)
+  (filter (lambda (l) (equal? (listing-match-id l) match-id)) listings)
+))
+
+(define search-listings-by-location (lambda (location)
+  (filter (lambda (l) (equal? (listing-location l) location)) listings)
 ))

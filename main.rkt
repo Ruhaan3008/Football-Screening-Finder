@@ -91,6 +91,49 @@
             (print-fan-bookings fan-session)
         )
 
+        ((equal? "2" user-input)
+            (displayln "How do you want to search: ")
+            (displayln "1. Match")
+            (displayln "2. Location")
+            (displayln "Enter how you want to search: ")
+            (define search-choice (string-trim (read-line)))
+
+            (define results
+                (cond
+                    ((equal? "1" search-choice)
+                        (print-all-matches)
+                        (display "Enter match ID: ")
+                        (search-listings-by-match (string->number (string-trim (read-line))))
+                    )
+                    ((equal? "2" search-choice)
+                        (display "Enter a location: ")
+                        (search-listings-by-location (string-trim (read-line)))
+                    )
+                        
+                    ;;did not enter either 1 or 2
+                    (#t '())
+                )
+            )
+
+            (cond
+                ((empty? results) (displayln "No listings found."))
+                (#t
+                    (for ([l results])
+                        (display "Listing ID: ")
+                        (displayln (get-listing-id l))
+
+                        (print-listing l)
+                    )
+
+                    (displayln "")
+                    (display "Enter the Listing ID to add to your selected listings: ")
+                    (define add-id (string->number (string-trim (read-line))))
+                    (add-booking (session-user-id fan-session) add-id)
+                    (displayln "Added to your selected listings.")
+                )
+            )
+        )
+
         ((equal? "3" user-input)
             (displayln "Please enter the ID of the listing you want to remove.")
             (print-fan-bookings fan-session)

@@ -14,7 +14,7 @@
 ;;function that need to be defined here
 (provide add-user 
   add-listing edit-listing
-  delete-booking
+  add-booking delete-booking
 )
 
 
@@ -73,6 +73,10 @@
 (define bookings (list
   (booking 0 0)
   (booking 0 1)
+))
+
+(define add-booking (lambda (user-id listing-id)
+  (set! bookings (set-add bookings (booking user-id listing-id)))
 ))
 
 ;;source for remove function
